@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Đăng Ký Tài Khoản</title>
+    <link rel="stylesheet" th:href="@{/css/giao-dien.css}">
+    <style>
+        /* Thêm một vài style riêng cho trang đăng ký/đăng nhập */
+        .auth-container {
+            background-color: #0a0342;
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 400px;
+            margin: 100px auto;
+            color: white;
+        }
+        .auth-container h1 { text-align: center; margin-bottom: 20px; }
+        .auth-container input { width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: none; font-size: 16px; }
+        .auth-container button { width: 100%; padding: 15px; border-radius: 8px; border: none; font-size: 16px; background-color: #8860d0; color: white; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<div class="auth-container">
+    <h1>Tạo Tài Khoản Mới</h1>
+
+    <form th:action="@{/dang-ky}" th:object="${giaoVienMoi}" method="post">
+        
+        <input type="text" th:field="*{hoTen}" placeholder="Nhập họ tên" required>
+        
+        <input type="email" th:field="*{email}" placeholder="Nhập email" required>
+        
+        <input type="password" th:field="*{matKhau}" placeholder="Nhập mật khẩu" required>
+        
+        <button type="submit">Tạo Tài Khoản</button>
+    </form>
+</div>
+
+</body>
+</html>

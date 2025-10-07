@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang chủ Giáo viên - AI Tạo Câu Hỏi</title>
+
+    <link rel="stylesheet" th:href="@{/css/giao-dien.css}">
+
+    <script src="https://unpkg.com/tesseract.js@5.1.0/dist/tesseract.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-icon">
+                <span>?</span>
+            </div>
+            <span>AI Tạo Câu Hỏi Cho Giáo Viên</span>
+            <div style="margin-left: auto; display: flex; align-items: center; gap: 15px;">
+                <span style="font-size: 0.9em;" th:text="${#authentication.name}"></span>
+                <form th:action="@{/dang-xuat}" method="post">
+                    <button type="submit" class="request-btn" style="background-color: #c9184a; padding: 10px 20px;">Đăng xuất</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="subject-grid">
+            <button class="subject-btn" id="toan">Toán học</button>
+            <button class="subject-btn" id="vatly">Vật Lý</button>
+            <button class="subject-btn" id="hoahoc">Hóa học</button>
+            <button class="subject-btn" id="lichsu">Lịch sử</button>
+            <button class="subject-btn" id="dialy">Địa lý</button>
+            <button class="subject-btn" id="tinhoc">Tin Học</button>
+            <button class="subject-btn" id="gdcd">GDCD</button>
+            <button class="subject-btn" id="sinhhoc">Sinh học</button>
+        </div>
+        
+        <div class="question-types hidden">
+            <button class="question-type-btn" id="tracnghiem">Câu Hỏi Trắc Nghiệm</button>
+            <button class="question-type-btn" id="tuluan">Câu Hỏi Tự Luận</button>
+        </div>
+        
+        <div class="content-section hidden">
+            <div class="curriculum-selectors">
+                <div>
+                    <label for="grade-selector-detail" class="grade-selector-label">Chọn Lớp:</label>
+                    <select class="grade-selector" id="grade-selector-detail">
+                        <option value="">-- Chọn Lớp --</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="book-set-selector">Bộ Sách Giáo Khoa:</label>
+                    <select id="book-set-selector" disabled>
+                        <option value="">-- Chọn Bộ Sách --</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="chapter-selector">Chương/Chủ đề:</label>
+                    <select id="chapter-selector" disabled>
+                        <option value="">-- Chọn Chương --</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="lesson-selector">Bài học:</label>
+                    <select id="lesson-selector" disabled>
+                        <option value="">-- Chọn Bài học --</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="difficulty-buttons">
+                <button class="difficulty-btn" id="de">Dễ</button>
+                <button class="difficulty-btn active" id="trungbinh">Trung bình</button>
+                <button class="difficulty-btn" id="kho">Khó</button>
+            </div>
+            
+            <div class="question-count">
+                <label for="question-count-input">Số lượng câu hỏi (1-50):</label>
+                <input type="number" id="question-count-input" min="1" max="50" value="5">
+            </div>
+            
+            <div class="input-and-button">
+                <textarea class="input-area" placeholder="Nhập yêu cầu bổ sung về nội dung câu hỏi (nếu có) hoặc tải ảnh phía dưới..."></textarea>
+                <button class="request-btn">Tạo câu hỏi</button>
+            </div>
+            <p class="prompt-suggestion">Gợi ý: Sau khi chọn Sách/Chương/Bài, bạn có thể yêu cầu "Tạo câu hỏi về các dạng toán đặc trưng" hoặc để trống nếu muốn câu hỏi tổng quát.</p>
+            
+            <div class="error-message"></div>
+            
+            <div class="upload-section">
+                <div class="upload-btn">
+                    <div class="upload-icon">↓</div>
+                    <div>Tải ảnh lên (nếu cần)</div>
+                </div>
+                <input type="file" id="image-upload" accept="image/*" style="display: none;">
+                <img id="image-preview" src="" alt="Xem trước ảnh" style="display: none;">
+            </div>
+            
+            <div class="response-section">
+                <p>Câu hỏi được tạo sẽ hiển thị ở đây</p>
+            </div>
+        </div>
+    </div>
+
+    <script th:src="@{/js/xu-ly-chinh.js}"></script>
+</body>
+</html>

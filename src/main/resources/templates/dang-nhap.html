@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Đăng Nhập</title>
+    <link rel="stylesheet" th:href="@{/css/giao-dien.css}">
+    <style>
+        .auth-container { background-color: #0a0342; padding: 40px; border-radius: 15px; max-width: 400px; margin: 100px auto; color: white; }
+        .auth-container h1 { text-align: center; margin-bottom: 20px; }
+        .auth-container input { width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: none; font-size: 16px; }
+        .auth-container button { width: 100%; padding: 15px; border-radius: 8px; border: none; font-size: 16px; background-color: #8860d0; color: white; cursor: pointer; }
+        .auth-message { text-align: center; margin-bottom: 15px; padding: 10px; border-radius: 5px; }
+        .error { background-color: #ff4d4d33; color: #ff8a8a; }
+        .success { background-color: #4caf5033; color: #a5d6a7; }
+    </style>
+</head>
+<body>
+
+<div class="auth-container">
+    <h1>Đăng Nhập</h1>
+
+    <div th:if="${param.error}" class="auth-message error">Thông tin đăng nhập không chính xác.</div>
+    <div th:if="${param.logout}" class="auth-message success">Bạn đã đăng xuất thành công.</div>
+    <div th:if="${param.success}" class="auth-message success">Đăng ký thành công! Vui lòng đăng nhập.</div>
+
+    <form th:action="@{/xu-ly-dang-nhap}" method="post">
+        <input type="email" name="email" placeholder="Nhập email" required>
+        <input type="password" name="matKhau" placeholder="Nhập mật khẩu" required>
+        <button type="submit">Đăng Nhập</button>
+    </form>
+    
+    <p style="text-align: center; margin-top: 20px;">
+        Chưa có tài khoản? <a th:href="@{/dang-ky}" style="color: #5ab9ea;">Đăng ký ngay</a>
+    </p>
+</div>
+
+</body>
+</html>
